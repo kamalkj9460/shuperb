@@ -1,0 +1,21 @@
+.collection-card--style-2 .collection-card__info{
+  height: auto!important;
+}
+
+@media (max-width: 767px){
+.hidden-on-mobile{
+  display: none!important;
+}
+  .template-product .site-wrapper .shopify-section:not(.shopify-section-group-header-group, .shopify-section-group-footer-group) {
+    padding-inline: 1rem;
+}
+}
+@media (min-width: 767px){
+.hidden-on-desktop{
+  display: none;
+}
+}
+
+.f-cart-recommendations__title{
+  display: none;
+}
