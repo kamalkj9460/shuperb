@@ -1,5 +1,5 @@
 {% comment %}theme-check-disable TemplateLength{% endcomment %}
-{{ 'product.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" data-href="{{ 'product.css' | asset_url }}">
 {% liquid
   assign enable_rtl = settings.enable_rtl
   assign language_support_rtl = settings.language_support_rtl
@@ -30,12 +30,10 @@
 <link
   id="ModalComponent"
   rel="stylesheet"
-  href="{{ 'modal-component.css' | asset_url }}"
-  media="print"
-  onload="this.media='all'"
+  data-href="{{ 'modal-component.css' | asset_url }}"
 >
 {%- if enable_image_zoom -%}
-  <link rel="stylesheet" href="{{ 'photoswipe-component.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" data-href="{{ 'photoswipe-component.css' | asset_url }}">
 {%- endif -%}
 {% liquid
   assign container = section.settings.container
@@ -84,7 +82,7 @@
 </div>
 <product-recently-viewed data-product-id="{{ product.id }}" class="f:hidden"></product-recently-viewed>
 {% if product.media.size > 0 %}
-  <script src="{{ 'product-media.js' | asset_url }}" defer="defer"></script>
+  <script type="lazyload_int" data-src="{{ 'product-media.js' | asset_url }}"></script>
 {% endif %}
 {%- if first_3d_model -%}
   <script type="application/json" id="ModelJSON-{{ product.id }}">
@@ -93,7 +91,7 @@
   <script src="{{ 'product-model.js' | asset_url }}" defer></script>
 {%- endif -%}
 {% if product.options_with_values.size > 0 %}
-  <script src="{{ 'variants-picker.js' | asset_url }}" defer="defer"></script>
+  <script type="lazyload_int" data-src="{{ 'variants-picker.js' | asset_url }}"></script>
 {% endif %}
 {% if section.settings.enable_image_zoom %}
   {%- liquid

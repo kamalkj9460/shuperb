@@ -1,0 +1,69 @@
+<!-- BEGIN app block: shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8 --><!-- Start of Judge.me Core -->
+<link rel="dns-prefetch" href="https://cdn.judge.me/">
+{% if canonical_url contains '/pages/reviews' %}
+{{ shop.metafields.judgeme.settings }}  
+{% else %}
+{{ shop.metafields.judgeme.settings | replace: '<script data-cfasync="false" type="text/javascript" async src="', '<script data-cfasync="false" type="lazyload_int" data-src="' | replace: 'type="text/css" media="nope!" onload="this.media=', '' | replace: "'all'", "" | replace: '" href="', 'data-href="' }}
+{% endif %}
+{% for count in (0..5) %}
+  {% assign metafield_key = 'html_miracle_' | append: count %}
+  {% assign current_metafield = shop.metafields.judgeme[metafield_key] %}
+  {% unless current_metafield %} {% break %} {% endunless %}
+  {{ current_metafield }}
+{% endfor %}
+<script data-cfasync='false' class='jdgm-script' {% unless canonical_url contains '/pages/reviews'  %}type="lazyload_int"{% endunless %}>
+!function(e){window.jdgm=window.jdgm||{},jdgm.CDN_HOST="https://cdn.judge.me/",
+jdgm.docReady=function(d){(e.attachEvent?"complete"===e.readyState:"loading"!==e.readyState)?
+setTimeout(d,0):e.addEventListener("DOMContentLoaded",d)},jdgm.loadCSS=function(d,t,o,s){
+!o&&jdgm.loadCSS.requestedUrls.indexOf(d)>=0||(jdgm.loadCSS.requestedUrls.push(d),
+(s=e.createElement("link")).rel="stylesheet",s.class="jdgm-stylesheet",s.media="nope!",
+s.href=d,s.onload=function(){this.media="all",t&&setTimeout(t)},e.body.appendChild(s))},
+jdgm.loadCSS.requestedUrls=[],jdgm.loadJS=function(e,d){var t=new XMLHttpRequest;
+t.onreadystatechange=function(){4===t.readyState&&(Function(t.response)(),d&&d(t.response))},
+t.open("GET",e),t.send()},jdgm.docReady((function(){(window.jdgmLoadCSS||e.querySelectorAll(
+".jdgm-widget, .jdgm-all-reviews-page").length>0)&&(jdgmSettings.widget_load_with_code_splitting?
+parseFloat(jdgmSettings.widget_version)>=3?jdgm.loadCSS(jdgm.CDN_HOST+"widget_v3/base.css"):
+jdgm.loadCSS(jdgm.CDN_HOST+"widget/base.css"):jdgm.loadCSS(jdgm.CDN_HOST+"shopify_v2.css"),
+jdgm.loadJS(jdgm.CDN_HOST+"loader.js"))}))}(document);
+</script>
+
+<noscript><link rel="stylesheet" type="text/css" media="all" href="https://cdn.judge.me/shopify_v2.css"></noscript>
+
+<!-- BEGIN app snippet: theme_fix_tags --><script {% unless canonical_url contains '/pages/reviews'  %}type="lazyload_int"{% endunless %}>
+  (function() {
+    var jdgmThemeFixes = {"138760618236":{"html":"","css":"","js":"window.onload = function() {\n  var targetElement = document.querySelector('[data-block-id=\"collapsible-tab-collapsible_tab_UKzqFT\"]');\n\n  var buttonInsideTarget = targetElement ? targetElement.querySelector('button') : null;\n\n  var triggerElement = document.querySelector('.jdgm-prev-badge');\n\n  if (buttonInsideTarget \u0026\u0026 triggerElement) {\n    triggerElement.addEventListener('click', function() {\n      var isCollapsed = targetElement.classList.contains('is-collapsed');\n\n      if (isCollapsed) {\n        buttonInsideTarget.click();\n      }\n    });\n  }\n};"},"140074483964":{"html":"","css":".jdgm-rev__prod-link-prefix::before {\n  display: none !Important;\n}","js":""}};
+    if (!jdgmThemeFixes) return;
+    var thisThemeFix = jdgmThemeFixes[Shopify.theme.id];
+    if (!thisThemeFix) return;
+
+    if (thisThemeFix.html) {
+      document.addEventListener("DOMContentLoaded", function() {
+        var htmlDiv = document.createElement('div');
+        htmlDiv.classList.add('jdgm-theme-fix-html');
+        htmlDiv.innerHTML = thisThemeFix.html;
+        document.body.append(htmlDiv);
+      });
+    };
+
+    if (thisThemeFix.css) {
+      var styleTag = document.createElement('style');
+      styleTag.classList.add('jdgm-theme-fix-style');
+      styleTag.innerHTML = thisThemeFix.css;
+      document.head.append(styleTag);
+    };
+
+    if (thisThemeFix.js) {
+      var scriptTag = document.createElement('script');
+      scriptTag.classList.add('jdgm-theme-fix-script');
+      scriptTag.innerHTML = thisThemeFix.js;
+      document.head.append(scriptTag);
+    };
+  })();
+</script>
+<!-- END app snippet -->
+<!-- End of Judge.me Core -->
+
+
+
+
+<!-- END app app block -->

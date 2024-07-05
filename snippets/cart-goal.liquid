@@ -27,7 +27,7 @@
 {%- assign free_shipping_message = free_shipping_text | replace: '{{amount}}', left_to_spend -%}
 
 {%- if enable_free_shipping_mess -%}
-    <link rel="stylesheet" href="{{ 'cart-goal.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" data-href="{{ 'cart-goal.css' | asset_url }}">
     <f-cart-goal class="f-cartgoal {{ class_message }}" data-enable-confetti="{{ enable_confetti }}" data-cart-total="{{ cart.total_price | plus: 0 }}" data-cart-goal="{{ limit }}" style="--progress: 0%;">
         <h4 class="f-cartgoal__title font-body text-body">
             <span class="f-cartgoal__default-message">{{ free_shipping_message }}</span>
@@ -40,5 +40,9 @@
             <span class="f-cartgoal__icon"> </span>
         </div>
     </f-cart-goal>
-    <script src="{{ 'cart-goal.js' | asset_url }}" defer="defer"></script>
+    {% if template contains 'cart' %}
+      <script src="{{ 'cart-goal.js' | asset_url }}" defer="defer"></script>
+    {% else %}
+      <script type="lazyload_int" data-src="{{ 'cart-goal.js' | asset_url }}"></script>
+    {% endif %}
 {%- endif -%}

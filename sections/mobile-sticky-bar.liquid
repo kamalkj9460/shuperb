@@ -155,7 +155,7 @@
 </mobile-sticky-bar>
 {% endif %}
 {%- endif -%}
-{% javascript %}
+<script type="lazyload_int">
   class MobileStickyBar extends HTMLElement {
     constructor() {
       super()
@@ -164,7 +164,7 @@
   }
   customElements.define('mobile-sticky-bar', MobileStickyBar)
 
-{% endjavascript %}
+</script>
 
 {% schema %}
 {

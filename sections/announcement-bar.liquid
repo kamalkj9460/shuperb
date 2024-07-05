@@ -123,7 +123,7 @@
 </announcement-bar>
 {% endif %}
 
-{% javascript %}
+<script type="lazyload_int">
   class AnnouncementBar extends HTMLElement {
     constructor() {
       super()
@@ -147,7 +147,7 @@
   }
 
   customElements.define('announcement-bar', AnnouncementBar)
-{% endjavascript %}
+</script>
 
 {% schema %}
 {

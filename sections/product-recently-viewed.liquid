@@ -1,7 +1,7 @@
 {% if section.index > 2 %}
-  <link rel="stylesheet" href="{{ 'component-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" data-href="{{ 'component-product-card.css' | asset_url }}">
 {% else %}
-  {{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+  <link rel="stylesheet" data-href="{{ 'component-product-card.css' | asset_url }}">  
 {% endif %}
 
 {% liquid
@@ -35,7 +35,7 @@
 	endif
 %}
 
-<script src="{{ 'recently-viewed-products.js' | asset_url }}" defer="defer"></script>
+<script type="lazyload_int" data-src="{{ 'recently-viewed-products.js' | asset_url }}"></script>
 <div
   id="{{ section_id }}"
   class="f-recently-viewed {{ custom_class }} f-section-padding color-{{ section.settings.color_schema }}"

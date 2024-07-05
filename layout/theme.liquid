@@ -22,13 +22,21 @@
   {% endif %}
 >
   <head>
+    {% render 'wnw-header' %}
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W9F474');</script>
-<!-- End Google Tag Manager -->
+    <script type="lazyload_int">
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-W9F474');
+    </script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -44,50 +52,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    {%- comment smartseo_integration_begin_meta_data -%}<title>
-      {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-    </title>{%- endcomment smartseo_integration_end_meta_data -%}
+    {%- comment -%}
+      <title>
+        {{ page_title }}
+        {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+        {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+        {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      </title>
+    {%- endcomment -%}
 
     {% if page_description %}
-      {%- comment smartseo_integration_begin_meta_data -%}<meta name="description" content="{{ page_description | escape }}">{%- endcomment smartseo_integration_end_meta_data -%}
+      {%- comment -%}<meta name="description" content="{{ page_description | escape }}">{%- endcomment -%}
     {% endif %}
 
     {% render 'meta-tags' %}
     {% render 'critical-css' %}
-    {{ 'custom.css' | asset_url | stylesheet_tag }}
-    {{ 'theme.css' | asset_url | stylesheet_tag }}
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'grid.css' | asset_url | stylesheet_tag }}
-    {{ 'components.css' | asset_url | stylesheet_tag }}
-
-    <link
-      rel="preload"
-      href="{{ 'non-critical.css' | asset_url }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet';"
-    >
-    <link
-      rel="preload"
-      href="{{ 'flickity-component.css' | asset_url }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet';"
-    >
-    <link
-      rel="preload"
-      href="{{ 'modal-component.css' | asset_url }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet';"
-    >
-    <link
-      rel="preload"
-      href="{{ 'drawer-component.css' | asset_url }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet';"
-    >
-
+    
+    {% if template contains "index" %}
+    	{% render "index-css" %}
+    {% elsif template contains "collection" %}
+    	{% render "collection-css" %}
+    {% elsif template contains "product" %}
+    	{% render "product-css" %}
+    {% else %}
+    	{% render "all-css" %}
+    {% endif %}                        
+    <link rel="stylesheet" data-href="{{ 'custom.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'theme.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'base.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'grid.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'components.css' | asset_url }}">
+    
+    <link rel="stylesheet" data-href="{{ 'non-critical.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'flickity-component.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'modal-component.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'drawer-component.css' | asset_url }}">
+    
     {%- if linklists['gift-wrapping'].links != blank
       and linklists['gift-wrapping'].links.first.type == 'product_link'
     -%}
@@ -119,25 +119,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {{ 'rtl.css' | asset_url | stylesheet_tag }}
       {% endif %}
     </noscript>
-    <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'lazy-image.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+    {% if template contains 'cart' %}
+    <script defer="defer" src="{{ 'vendor.js' | asset_url }}"></script>
+    <script defer="defer" src="{{ 'global.js' | asset_url }}"></script>
+    <script defer="defer" src="{{ 'lazy-image.js' | asset_url }}"></script>
+    <script defer="defer" src="{{ 'product-form.js' | asset_url }}"></script>
+    {% else %}
+    <script type="lazyload_int" data-src="{{ 'vendor.js' | asset_url }}"></script>
+    <script type="lazyload_int" data-src="{{ 'global.js' | asset_url }}"></script>
+    <script type="lazyload_int" data-src="{{ 'lazy-image.js' | asset_url }}"></script>
+    <script type="lazyload_int" data-src="{{ 'product-form.js' | asset_url }}"></script>
+    {% endif %}
 
     {%- if settings.cart_recommendations_enable -%}
-      <script src="{{ 'cart-recommendations.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_int" data-src="{{ 'cart-recommendations.js' | asset_url }}"></script>
     {%- endif -%}
 
     {%- if settings.animations != 'none' -%}
-      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_int" data-src="{{ 'animations.js' | asset_url }}"></script>
     {%- endif -%}
 
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     </script>
-
-    {%- if tinyscript -%}{{ content_for_header }}{%- else -%}{% render 'tiny-script-control' %}{%- endif -%}
-
+    {% comment %}
+      {%- if tinyscript -%}{{ content_for_header }}{%- else -%}{% render 'tiny-script-control' %}{%- endif -%}
+    {% endcomment %}
+    
+    {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+      {{ content_for_header }}
+    {%- else -%}
+        {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+        {{ content_for_header2 | replace: ' async="async" ', ' type="lazyload_int" ' | replace: ' defer="defer" ', ' type="lazyload_int" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "w3-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);" | replace: "type='text/javascript' async=''", "type='lazyload_int' "}}
+        <script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+    {%- endif -%}
+  
     {%- unless settings.type_body_font.system? -%}
       <link
         rel="preload"
@@ -161,7 +177,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     {% comment %} Custom metafield for head tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_head.value }}
-  <!--DOOFINDER-SHOPIFY--> {% if content_for_header contains 'doofinder-installed.js' %} {% render 'doofinder-script-tag' %} {% endif %} <!--/DOOFINDER-SHOPIFY--></head>
+    <!-- DOOFINDER-SHOPIFY -->
+    {% if content_for_header contains 'doofinder-installed.js' %} {% render 'doofinder-script-tag' %} {% endif %}
+    <!-- /DOOFINDER-SHOPIFY -->
+     {% render 'app-block' %}
+     {% render 'custom-css' %}
+  </head>
 
   <body class="template-{{ template.name | handle }} {{ template.name }}-{{ template.suffix }}{% if settings.page_transition %} overflow-hidden{% endif %}">
     {% comment %} Custom metafield for body tag like GTag tracking {% endcomment %}
@@ -207,65 +228,100 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     {% render 'theme-script' %}
     {% render 'cookie-banner' %}
-    <script src="{{ 'collapsible-tab.js' | asset_url }}" defer="defer"></script>
+    <script type="lazyload_int" data-src="{{ 'collapsible-tab.js' | asset_url }}"></script>
     {% if settings.pcard_show_quickview_button or settings.pcard_choose_options_actions == 'open_popup' %}
-      <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_int" data-src="{{ 'quick-view.js' | asset_url }}"></script>
     {% endif %}
     {% if settings.pcard_show_color_swatch %}
-      <script src="{{ 'color-swatch.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_int" data-src="{{ 'color-swatch.js' | asset_url }}"></script>
     {% endif %}
     {%- if linklists['gift-wrapping'].links != blank
       and linklists['gift-wrapping'].links.first.type == 'product_link'
     -%}
-      <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_int" data-src="{{ 'gift-wrapping.js' | asset_url }}"></script>
     {%- endif -%}
     {%- if request.design_mode -%}
       <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-        <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
-<script>
-    var klaviyo = klaviyo || [];
-    klaviyo.init({
-      account: "YtWWJb",
-      platform: "shopify"
-    });
-    klaviyo.enable("backinstock",{ 
-    trigger: {
-      product_page_text: "Notify Me When Available",
-      product_page_class: "btn",
-      product_page_text_align: "center",
-      product_page_margin: "0px",
-      replace_anchor: true
-    },
-    modal: {
-     headline: "{product_name}",
-     body_content: "Register to receive a notification when this item comes back in stock.",
-     email_field_label: "Email",
-     button_label: "Notify me when available",
-     subscription_success_label: "You're in! We'll let you know when it's back.",
-     footer_content: '',
-     additional_styles: "@import url('https://fonts.googleapis.com/css?family=Helvetica+Neue');",
-     drop_background_color: "#000",
-     background_color: "#fff",
-     text_color: "#222",
-     button_text_color: "#fff",
-     button_background_color: "#000000",
-     close_button_color: "#ccc",
-     error_background_color: "#fcd6d7",
-     error_text_color: "#C72E2F",
-     success_background_color: "#d3efcd",
-     success_text_color: "#1B9500"
-    }
-  });
-</script>
+    <script type="lazyload_int" data-src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+    <script type="lazyload_int">
+      var klaviyo = klaviyo || [];
+      klaviyo.init({
+        account: 'YtWWJb',
+        platform: 'shopify',
+      });
+      klaviyo.enable('backinstock', {
+        trigger: {
+          product_page_text: 'Notify Me When Available',
+          product_page_class: 'btn',
+          product_page_text_align: 'center',
+          product_page_margin: '0px',
+          replace_anchor: true,
+        },
+        modal: {
+          headline: '{product_name}',
+          body_content: 'Register to receive a notification when this item comes back in stock.',
+          email_field_label: 'Email',
+          button_label: 'Notify me when available',
+          subscription_success_label: "You're in! We'll let you know when it's back.",
+          footer_content: '',
+          additional_styles: "@import url('https://fonts.googleapis.com/css?family=Helvetica+Neue');",
+          drop_background_color: '#000',
+          background_color: '#fff',
+          text_color: '#222',
+          button_text_color: '#fff',
+          button_background_color: '#000000',
+          close_button_color: '#ccc',
+          error_background_color: '#fcd6d7',
+          error_text_color: '#C72E2F',
+          success_background_color: '#d3efcd',
+          success_text_color: '#1B9500',
+        },
+      });
+    </script>
     <style>
-      @media (max-width:767px){
-body .site-logo--image.site-logo--mobile img {object-fit: contain;}
-body .mobile-nav-toggle{margin-left: 0;align-items: center;}
-body .site-header__inner {width: 100vw;}
+      @media (max-width: 767px) {
+        body .site-logo--image.site-logo--mobile img {
+          object-fit: contain;
+        }
+        body .mobile-nav-toggle {
+          margin-left: 0;
+          align-items: center;
+        }
+        body .site-header__inner {
+          width: 100vw;
+        }
       }
     </style>
-  {{'tiny-img-link-preloader.js' | asset_url | script_tag }}
-</body>
+    <script data-src="{{ 'tiny-img-link-preloader.js' | asset_url }}" type="lazyload_int"></script>    
+    <script>
+        var site_nav_link_burger = true;
+        document.addEventListener("DOMContentLoaded", function() {
+            var icon_menu = document.querySelector("drawer-opener button");
+            icon_menu.addEventListener("click", function() {
+                if(site_nav_link_burger) {
+                    event.preventDefault();
+                    site_nav_link_burger = false;
+                }
+            });
+        }) 
+    </script>
+    <script type="lazyload_int">
+        document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function() {
+            var images = document.querySelectorAll('img[datalate-srcset]');
+            if(images){
+              images.forEach(function (img) {
+                  var dataSrcsetValue = img.getAttribute('datalate-srcset');
+                  img.setAttribute('srcset', dataSrcsetValue);
+                  img.removeAttribute('datalate-srcset');
+              });
+            }
+        });
+        });
+    </script>
+    {% render 'footer-app-block' %}
+    {% render 'wnw-footer' %}
+  </body>
 </html>

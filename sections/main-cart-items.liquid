@@ -1,5 +1,10 @@
 {{ 'cart.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+{% if template contains 'cart' %}
+  <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+{% else %}
+  <script type="lazyload_int" data-src="{{ 'cart.js' | asset_url }}"></script>
+{% endif %}
+
 
 {%- liquid 
 	if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link'

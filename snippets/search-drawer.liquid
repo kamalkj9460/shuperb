@@ -4,7 +4,7 @@
     assign predictive_search_collection = settings.predictive_search_collection
     assign product_title_class = 'text-product-title font-' | append: settings.pcard_title_font
 %}
-<link rel="stylesheet" href="{{ 'search-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" data-href="{{ 'search-drawer.css' | asset_url }}">
 <noscript>
     {{ 'search-drawer.css' | asset_url | stylesheet_tag }}
 </noscript>
@@ -78,7 +78,7 @@
                                             <div class="f-predictive-search__item-image">
                                                 <responsive-image class="f-predictive-search__item-image f-image" style="--aspect-ratio: {{ product.featured_media.preview_image.aspect_ratio | default: '1' }}">
                                                     <img
-                                                        src="{{ product.featured_media | image_url: width: 150 }}"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="{{ product.featured_media | image_url: width: 150 }}"
                                                         alt="{{ product.featured_media.alt }}"
                                                         width="70"
                                                         height="{{ 70 | divided_by: product.featured_media.preview_image.aspect_ratio }}"
@@ -120,5 +120,5 @@
     </div>
 </drawer-component>
 {%- if predictive_search_enabled -%}
-    <script src="{{ 'search-drawer.js' | asset_url }}" defer="defer"></script>
+    <script type="lazyload_int" data-src="{{ 'search-drawer.js' | asset_url }}"></script>
 {%- endif -%}

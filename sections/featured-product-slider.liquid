@@ -1,5 +1,4 @@
-{{ 'featured-product-slider.css' | asset_url | stylesheet_tag }}
-
+<link rel="stylesheet" data-href="{{ 'featured-product-slider.css' | asset_url }}">
 {%- liquid 
 	assign section_id = section.settings.custom_id | default: section.id
 	assign custom_class = section.settings.custom_class

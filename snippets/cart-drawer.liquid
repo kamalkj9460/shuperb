@@ -23,9 +23,9 @@
 %}
 
 {% if should_show %}
-  <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
-  <link rel="stylesheet" href="{{ 'cart-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script type="lazyload_int" data-src="{{ 'cart.js' | asset_url }}"></script>
+  <script type="lazyload_int" data-src="{{ 'cart-drawer.js' | asset_url }}"></script>
+  <link rel="stylesheet" data-href="{{ 'cart-drawer.css' | asset_url }}">
   <noscript>{{ 'cart-drawer.css' | asset_url | stylesheet_tag }}</noscript>
   <div
     data-section-type="cart-drawer"

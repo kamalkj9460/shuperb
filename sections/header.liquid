@@ -1,5 +1,5 @@
-{{ 'header.css' | asset_url | stylesheet_tag }}
-{{ 'site-nav.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" data-href="{{ 'header.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'site-nav.css' | asset_url }}">
 {% liquid
   assign layout = section.settings.layout
   assign sticky_header = section.settings.sticky_header
@@ -17,7 +17,7 @@
 </style>
 {% endif %}
 {% if sticky_header %}
-  <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+  <script type="lazyload_int" data-src="{{ 'header.js' | asset_url }}"></script>
   <div class="site-header__placeholder"></div>
 {% endif %}
 <{% if sticky_header %}sticky-header{% else %}div{% endif %} class="site-header__wrapper" data-header-sticky="{{ sticky_header }}">
@@ -159,7 +159,7 @@
 -%}
 
 {% unless mobile_menu and menu_links.size == 0 %}
-  <script src="{{ 'mobile-nav.js' | asset_url }}" defer="defer"></script>
+  <script type="lazyload_int" data-src="{{ 'mobile-nav.js' | asset_url }}"></script>
   <div class="hidden no-js-hidden xl-down:block">
     <drawer-component id="Drawer-MobileNav" class="f-drawer f-drawer--left f-drawer-mobile-nav" hidden role="dialog" aria-modal="true" aria-label="{{ 'layout.navigation.menu' | t }}" style="--f-drawer-width: 100vw;">
       <div class="f-drawer__content focus-inset" tabindex="-1">
@@ -284,7 +284,7 @@
     "url": {{ shop.url | append: page.url | json }}
   }
 </script>
-<script src="{{ 'header-menu.js' | asset_url }}" defer="defer"></script>
+<script type="lazyload_int" data-src="{{ 'header-menu.js' | asset_url }}"></script>
 {%- if request.page_type == 'index' -%}
   {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
   <script type="application/ld+json">

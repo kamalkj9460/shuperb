@@ -23,8 +23,7 @@
 %}
 <responsive-image data-index="{{ index }}" class="f-image {{ wrapper_class }}" data-image-loading {{ wrapper_attributes }} style="{{ style | strip | strip_newlines }}">
     <img
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="{{ image | image_url: width: 1500 }}" data-mob-src="{{ image | image_url: width: 560 }}"
-        datalate-srcset="{%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
+        srcset="{%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
             {%- if image.width >= 360 -%}{{ image | image_url: width: 360 }} 360w,{%- endif -%}
             {%- if image.width >= 533 -%}{{ image | image_url: width: 533 }} 533w,{%- endif -%}
             {%- if image.width >= 720 -%}{{ image | image_url: width: 720 }} 720w,{%- endif -%}
@@ -34,6 +33,7 @@
             {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
             {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
             {{ image | image_url }} {{ image.width }}w"
+        src="{{ image | image_url: width: 360 }}"
         sizes="(min-width: {{ settings.container_width }}px) {{ settings.container_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
         alt="{{ alt | default: image.alt | escape }}"
         loading="{{ loading }}"

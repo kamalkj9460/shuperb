@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ 'footer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" data-href="{{ 'footer.css' | asset_url }}">
 {% liquid
   assign container = section.settings.container
   assign show_social = section.settings.show_social
@@ -203,7 +203,7 @@
 										<div class="site-footer__follow-on-shop flex overflow-hidden">
 												{% comment %} TODO: enable theme-check once `login_button` is accepted as valid filter {% endcomment %}
 												{% # theme-check-disable %}
-												{{ shop | login_button: action: 'follow' }}
+												{{ shop | login_button: action: 'follow' | replace: 'defer="defer" async type="module" src=', 'data-w3-type="module" type="lazyload_int" data-src=' | replace: '<script type="module">', '<script data-w3-type="module" type="lazyload_int">'  }}
 												{% # theme-check-enable %}
 										</div>
 								{%- endif -%}
@@ -236,7 +236,7 @@
     </div>
   </div>
 </footer>
-{% javascript %}
+<script type="lazyload_int">
 class FooterCollapsible extends HTMLElement {
   constructor() {
     super();
@@ -286,7 +286,7 @@ class FooterCollapsible extends HTMLElement {
 }
 
 customElements.define('footer-collapsible', FooterCollapsible);
-{% endjavascript %}
+</script>
 
 {% schema %}
 {

@@ -61,6 +61,7 @@
                   sizes: '50vw',
                   widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
                   alt: collection_title
+                | replace: ' src="' , ' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="' | replace: ' srcset="' , ' data-srcset="'
               }}
             </div>
           {% else %}
